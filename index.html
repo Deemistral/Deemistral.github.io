@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Heartfelt Apology</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f9f4f0;
+      color: #3a3226;
+      line-height: 1.6;
+      font-family: 'IM Fell English', serif;
+      overflow-x: hidden;
+      height: 100vh;
+      overflow-y: hidden;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Sections */
+    .section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      z-index: 1;
+    }
+
+    .section.active {
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    .section.exit-left {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .section.exit-right {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    /* Navigation Controls */
+    .nav-controls {
+      position: fixed;
+      bottom: 80px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 100;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #d1c7b8;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: #8c2a22;
+      transform: scale(1.2);
+    }
+
+    .nav-btn {
+      padding: 0.5rem 1.5rem;
+      background: #8c2a22;
+      color: #f8f3e6;
+      border: none;
+      border-radius: 50px;
+      font-family: 'IM Fell English', serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 100px;
+    }
+
+    .nav-btn:hover {
+      background: #6d1f19;
+    }
+
+    .nav-btn:disabled {
+      background: #d1c7b8;
+      cursor: not-allowed;
+    }
+
+    /* Typography */
+    h1, h2 {
+      font-family: 'IM Fell English SC', serif;
+      color: #5c3a21;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+      color: #5a4a3a;
+      padding: 0 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.8rem 2rem;
+      background: #8c2a22;
+      color: #f8f3e6;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'IM Fell English', serif;
+      letter-spacing: 1px;
+      margin: 1rem 0;
+    }
+
+    .btn:hover {
+      background: #6d1f19;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Envelope Section */
+    .envelope-container {
+      position: relative;
+      width: 300px;
+      height: 225px;
+      margin: 1rem auto;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1.5s ease-in-out;
+      transform-origin: center;
+    }
+    
+    .envelope-front {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.ibb.co/7YjX0Pv/vintage-envelope-front.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      backface-visibility: hidden;
+      z-index: 2;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+    }
+    
+    .wax-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background-image: url('https://i.ibb.co/9qk8b0L/red-wax-seal.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: all 0.5s ease;
+      z-index: 3;
+      filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+    }
+    
+    .wax-seal:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
+    }
+    
+    .envelope-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.ibb.co/4TdG0y5/vintage-envelope-back.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      backface-visibility: hidden;
+      transform: rotateY(180deg);
+      z-index: 1;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+    }
+    
+    .envelope.open {
+      transform: rotateY(180deg);
+    }
+
+    /* Apology Letter */
+    .apology-content {
+      background-color: #f8f3e6;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="100%" height="100%" fill="none" stroke="%23d1c7b8" stroke-width="2" stroke-dasharray="5,5" /></svg>');
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-align: left;
+      border-radius: 2px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0,0,0,0.3);
+      border: 1px solid #d1c7b8;
+      margin: 1rem 0;
+    }
+
+    .handwriting {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      margin-top: 2rem;
+      text-align: right;
+    }
+    
+    .date {
+      font-style: italic;
+      text-align: right;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #5a4a3a;
+    }
+    
+    .fold-line {
+      position: absolute;
+      background: rgba(120, 90, 70, 0.15);
+    }
+    
+    .fold-line-1 {
+      top: 30%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      width: 100%;
+      transform: rotate(-1deg);
+    }
+    
+    .fold-line-2 {
+      top: 60%;
+      left: 0;
+      right: 20%;
+      height: 1px;
+      width: 80%;
+      transform: rotate(2deg);
+    }
+    
+    .wax-seal-letter {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      width: 50px;
+      height: 50px;
+      background: #8c2a22;
+      border-radius: 50%;
+      box-shadow: 
+          inset 5px 5px 10px rgba(0, 0, 0, 0.3),
+          inset -3px -3px 5px rgba(255, 255, 255, 0.1),
+          2px 2px 10px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: rotate(-10deg);
+    }
+    
+    .wax-seal-letter::before {
+      content: "S";
+      font-family: 'Times New Roman', serif;
+      font-size: 1.5rem;
+      color: #e8d8c0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    .ink-blot {
+      position: absolute;
+      background: rgba(30, 20, 10, 0.1);
+      border-radius: 50%;
+      filter: blur(1px);
+    }
+    
+    .ink-blot-1 {
+      top: 15%;
+      right: 10%;
+      width: 40px;
+      height: 30px;
+      transform: rotate(30deg);
+    }
+    
+    .ink-blot-2 {
+      bottom: 20%;
+      left: 15%;
+      width: 25px;
+      height: 25px;
+    }
+
+    /* Memories Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .memory-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 150px;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .memory-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .memory-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .memory-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.5rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .memory-card:hover .memory-caption {
+      transform: translateY(0);
+    }
+
+    /* Response Form */
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+      background: #f8f3e6;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      margin: 1rem 0;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid #d1c7b8;
+      border-radius: 8px;
+      resize: vertical;
+      min-height: 120px;
+      font-family: 'IM Fell English', serif;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.7);
+    }
+
+    /* Next Steps Section */
+    .next-steps {
+      width: 100%;
+      max-width: 600px;
+      background: #f8f3e6;
+      padding: 30px;
+      margin: 1rem 0;
+      border-radius: 2px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0,0,0,0.3);
+      border: 1px solid #d1c7b8;
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Thank You Section */
+    .thank-you {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .rose {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Footer */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: #3a3226;
+      color: #e8dfd3;
+      text-align: center;
+      z-index: 99;
+      border-top: 2px solid #8c2a22;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+      
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .apology-content, .next-steps {
+        padding: 20px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+
+      .nav-controls {
+        bottom: 70px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .section {
+        padding: 1rem;
+      }
+      
+      .nav-controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .nav-btn {
+        padding: 0.5rem 1rem;
+        min-width: 80px;
+      }
+      
+      .envelope-container {
+        width: 250px;
+        height: 188px;
+      }
+      
+      .wax-seal {
+        width: 50px;
+        height: 50px;
+      }
+
+      .rose {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Landing -->
+    <div class="section active" id="landing">
+      <h1>My Heartfelt Apology</h1>
+      <p class="subtitle">[Recipient's Name], please take a moment to read this message from my heart.</p>
+      <button class="btn" onclick="nextSection()">Begin</button>
+    </div>
+
+    <!-- Envelope -->
+    <div class="section" id="envelope-section">
+      <h2>A Message Sealed With Regret</h2>
+      <p class="subtitle">Click the wax seal to reveal my apology</p>
+      
+      <div class="envelope-container">
+        <div class="envelope" id="envelopeElement">
+          <div class="envelope-front"></div>
+          <div class="envelope-back"></div>
+          <div class="wax-seal" id="waxSeal"></div>
+        </div>
+      </div>
+      
+      <p class="subtitle pulse">Click the wax seal to open the letter</p>
+    </div>
+
+    <!-- Apology Letter -->
+    <div class="section" id="apology-section">
+      <h2>My Sincere Apology</h2>
+      
+      <div class="apology-content">
+        <div class="fold-line fold-line-1"></div>
+        <div class="fold-line fold-line-2"></div>
+        <div class="ink-blot ink-blot-1"></div>
+        <div class="ink-blot ink-blot-2"></div>
+        
+        <div class="handwriting">My Dearest [Name],</div>
+        
+        <p>I write these words with a heavy heart, filled with regret for my actions. I've spent countless hours reflecting on what happened, and I realize now how deeply I've hurt you.</p>
+        
+        <p>When I [describe what you did wrong], I wasn't thinking clearly about how it would affect you. I see now that it made you feel [describe their feelings], and that realization fills me with sorrow.</p>
+        
+        <p>You are one of the most important people in my life, and the thought that I've caused you pain is unbearable. I want you to know that I truly understand what I did wrong, and I'm committed to making things right.</p>
+        
+        <p>I'm not making excuses for my behavior. I take full responsibility for my actions, and I want to do whatever I can to repair the trust I've broken between us.</p>
+        
+        <p>Please know that I'm here, ready to listen whenever you're ready to talk. I value our relationship more than words can express, and I hope with time and effort, I can earn your forgiveness.</p>
+        
+        <p>With all my love and regret,</p>
+        
+        <div class="signature">[Your Name]</div>
+        <div class="date" id="currentDate"></div>
+        
+        <div class="wax-seal-letter"></div>
+      </div>
+    </div>
+
+    <!-- Memories -->
+    <div class="section" id="memories-section">
+      <h2>Remember When...</h2>
+      <p class="subtitle">These moments remind me why you're so special to me</p>
+      
+      <div class="gallery">
+        <div class="memory-card">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Happy memory">
+          <div class="memory-caption">That time we laughed until we cried</div>
+        </div>
+        <div class="memory-card">
+          <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Special moment">
+          <div class="memory-caption">Our unforgettable adventure together</div>
+        </div>
+        <div class="memory-card">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Celebration">
+          <div class="memory-caption">Celebrating your success</div>
+        </div>
+        <div class="memory-card">
+          <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Quiet moment">
+          <div class="memory-caption">Those quiet moments I cherish</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What Happens Next -->
+    <div class="section" id="next-section">
+      <h2>What Happens Next</h2>
+      
+      <div class="next-steps">
+        <p>I don't expect anything. But I wanted you to know how I feel. If you ever want to talk — or not talk — I'm here.</p>
+        <p>No pressure, no expectations. Just know that I care deeply about you and our relationship.</p>
+        <p>Whatever you decide, I respect your feelings and your space.</p>
+      </div>
+    </div>
+
+    <!-- Contact Options -->
+    <div class="section" id="contact-section">
+      <h2>If You'd Like To Respond</h2>
+      <p class="subtitle">I'd be honored to hear your thoughts</p>
+      
+      <div class="form-container">
+        <textarea placeholder="Write your response here... (optional)"></textarea>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn" onclick="sendResponse('whatsapp')">WhatsApp</button>
+          <button class="btn" onclick="sendResponse('email')">Email</button>
+          <button class="btn" onclick="sendResponse('none')">No Response Needed</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thank You -->
+    <div class="section" id="thankyou-section">
+      <div class="thank-you">
+        <div class="rose">🌹</div>
+        <h2>Thank You</h2>
+        <div class="next-steps" style="text-align: center;">
+          <p>For taking the time to read my apology.</p>
+          <p>For the memories we've shared.</p>
+          <p>For being you.</p>
+          <p>This rose is but a small token of my appreciation.</p>
+          <p>May its petals carry my sincerest regrets and warmest hopes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn" disabled onclick="prevSection()">Previous</button>
+    <div class="nav-dots" id="navDots"></div>
+    <button class="nav-btn" id="nextBtn" onclick="nextSection()">Next</button>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2025 Made with love for one person only.</p>
+  </div>
+
+  <script>
+    // Set current date
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+
+    // Initialize sections
+    const sections = document.querySelectorAll('.section');
+    const navDots = document.getElementById('navDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSectionIndex = 0;
+
+    // Create navigation dots
+    sections.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSection(index));
+      navDots.appendChild(dot);
+    });
+
+    // Envelope interaction
+    const envelope = document.getElementById('envelopeElement');
+    const waxSeal = document.getElementById('waxSeal');
+    
+    waxSeal.addEventListener('click', function(e) {
+      e.stopPropagation();
+      envelope.classList.add('open');
+      setTimeout(() => {
+        nextSection();
+      }, 1000);
+    });
+    
+    envelope.addEventListener('click', function() {
+      envelope.classList.add('open');
+      setTimeout(() => {
+        nextSection();
+      }, 1000);
+    });
+
+    // Navigation functions
+    function updateNavigation() {
+      // Update dots
+      document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSectionIndex);
+      });
+      
+      // Update buttons
+      prevBtn.disabled = currentSectionIndex === 0;
+      nextBtn.disabled = currentSectionIndex === sections.length - 1;
+    }
+
+    function goToSection(index) {
+      if (index === currentSectionIndex) return;
+      
+      const direction = index > currentSectionIndex ? 'right' : 'left';
+      const currentSection = sections[currentSectionIndex];
+      const newSection = sections[index];
+      
+      // Exit current section
+      currentSection.classList.remove('active');
+      currentSection.classList.add(direction === 'right' ? 'exit-left' : 'exit-right');
+      
+      // Enter new section
+      newSection.classList.add('active');
+      newSection.classList.remove('exit-left', 'exit-right');
+      
+      currentSectionIndex = index;
+      updateNavigation();
+      
+      // Clean up classes after animation
+      setTimeout(() => {
+        currentSection.classList.remove('exit-left', 'exit-right');
+      }, 800);
+    }
+
+    function nextSection() {
+      if (currentSectionIndex < sections.length - 1) {
+        goToSection(currentSectionIndex + 1);
+      }
+    }
+
+    function prevSection() {
+      if (currentSectionIndex > 0) {
+        goToSection(currentSectionIndex - 1);
+      }
+    }
+
+    // Response handling
+    function sendResponse(method) {
+      const text = document.querySelector('textarea').value;
+      
+      if (method === 'whatsapp') {
+        window.location.href = `https://wa.me/1234567890?text=${encodeURIComponent(text || "I've read your apology")}`;
+      } else if (method === 'email') {
+        window.location.href = `mailto:youremail@example.com?subject=Response%20to%20Your%20Apology&body=${encodeURIComponent(text || "I've read your apology")}`;
+      } else {
+        // No response needed - go to thank you page
+        goToSection(sections.length - 1);
+      }
+    }
+
+    // Initialize navigation
+    updateNavigation();
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSection();
+      } else if (e.key === 'ArrowLeft') {
+        prevSection();
+      }
+    });
+  </script>
+</body>
+</html>
