@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Heartfelt Apology</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* Reset & Base Styles */
     * {
@@ -20,6 +21,7 @@
       font-family: 'IM Fell English', serif;
       overflow-x: hidden;
       min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* Main Container */
@@ -363,7 +365,7 @@
     }
     
     .wax-seal-letter::before {
-      content: "S";
+      content: "Dee";
       font-family: 'Times New Roman', serif;
       font-size: 1.5rem;
       color: #e8d8c0;
@@ -491,12 +493,36 @@
       justify-content: center;
       height: 100%;
       padding: 1rem;
+      position: relative;
     }
 
     .rose {
       font-size: clamp(2.5rem, 12vw, 4rem);
       margin-bottom: 1rem;
       animation: float 3s ease-in-out infinite;
+    }
+
+    .home-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #8c2a22;
+      color: #f8f3e6;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .home-btn:hover {
+      background: #6d1f19;
+      transform: scale(1.1);
     }
 
     @keyframes float {
@@ -517,7 +543,13 @@
       text-align: center;
       z-index: 99;
       border-top: 2px solid #8c2a22;
-      display: block; /* Ensure footer is always visible */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer p {
+      margin: 0;
     }
 
     /* Audio Player */
@@ -556,24 +588,26 @@
     }
 
     /* Mobile-specific adjustments */
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .section {
         padding: 0.8rem;
+        min-height: calc(100vh - 50px);
       }
       
       .apology-content {
         padding: 1.5rem;
-        max-height: 70vh;
+        max-height: 65vh;
       }
       
       .nav-controls {
-        bottom: 60px;
+        bottom: 50px;
         padding: 8px;
       }
       
       .nav-btn {
         padding: 0.6rem 1.2rem;
         min-width: 80px;
+        font-size: 0.9rem;
       }
       
       .wax-seal {
@@ -587,10 +621,35 @@
         padding: 6px 10px;
       }
 
-      /* Ensure footer is visible on mobile */
+      /* Footer adjustments */
       .footer {
         padding: 0.8rem;
         font-size: 0.9rem;
+        height: 50px;
+      }
+
+      /* Home button adjustments */
+      .home-btn {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .apology-content {
+        max-height: 60vh;
+        font-size: 1rem;
+        padding: 1rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .memory-card {
+        height: 120px;
       }
     }
   </style>
@@ -608,7 +667,7 @@
     <!-- Landing -->
     <div class="section active" id="landing">
       <h1>My Heartfelt Apology</h1>
-      <p class="subtitle">[Recipient's Name], please take a moment to read this message from my heart.</p>
+      <p class="subtitle">Banwo Omosan, please take a moment to read this message from the deepest part of me</p>
       <button class="btn" id="beginBtn">Begin</button>
     </div>
 
@@ -640,19 +699,17 @@
         
         <div class="handwriting typewriter">My Dearest [Name],</div>
         
-        <p class="typewriter">I write these words with a heavy heart, filled with regret for my actions. I've spent countless hours reflecting on what happened, and I realize now how deeply I've hurt you.</p>
+        <p class="typewriter">I pen this missive with a burdened heart, for it has come to my attention that my conduct—though borne of earnest admiration—has wounded thee. Should you have felt that I regarded you with anything less than the highest esteem, or that my intentions were of a hurried and unbecoming nature, I prostrate myself before thee in deepest contrition.</p>
         
-        <p class="typewriter">When I [describe what you did wrong], I wasn't thinking clearly about how it would affect you. I see now that it made you feel [describe their feelings], and that realization fills me with sorrow.</p>
+        <p class="typewriter">Verily, I have held you ever since our first 2 meetings in such regard that I deemed all others are dull-witted and dumb for failing to recognize your worth. In my haste to declare my interest, lest those fools come to their right senses and permit thee to slip away, I fear I erred grievously. For this, I am profoundly remorseful.</p>
         
-        <p class="typewriter">You are one of the most important people in my life, and the thought that I've caused you pain is unbearable. I want you to know that I truly understand what I did wrong, and I'm committed to making things right.</p>
+        <p class="typewriter">You are deserving of every courtesy, every patience, and every noble gesture. If I have strayed from this path, I humbly ask for your forgiveness. My mind and soul shall know no rest until this shadow between us is dispelled.</p>
         
-        <p class="typewriter">I'm not making excuses for my behavior. I take full responsibility for my actions, and I want to do whatever I can to repair the trust I've broken between us.</p>
+        <p class="typewriter">I'm not making excuses for my behavior. I take full responsibility for my actions, and I am willing to do whatever I can to repair the trust I've broken between us.</p>
         
-        <p class="typewriter">Please know that I'm here, ready to listen whenever you're ready to talk. I value our relationship more than words can express, and I hope with time and effort, I can earn your forgiveness.</p>
+        <p class="typewriter">With the utmost sincerity and regret,</p>
         
-        <p class="typewriter">With all my love and regret,</p>
-        
-        <div class="signature typewriter">[Your Name]</div>
+        <div class="signature typewriter">Adedolapo</div>
         <div class="date" id="currentDate"></div>
         
         <div class="wax-seal-letter"></div>
@@ -662,7 +719,7 @@
     <!-- Memories -->
     <div class="section" id="memories-section">
       <h2>Remember When...</h2>
-      <p class="subtitle">These moments remind me why you're so special to me</p>
+      <p class="subtitle">These are 4 ways to convey my apologies to you</p>
       
       <div class="gallery">
         <div class="memory-card">
@@ -670,16 +727,8 @@
           <div class="memory-caption">That time we laughed until we cried</div>
         </div>
         <div class="memory-card">
-          <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Special moment">
-          <div class="memory-caption">Our unforgettable adventure together</div>
-        </div>
-        <div class="memory-card">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Celebration">
-          <div class="memory-caption">Celebrating your success</div>
-        </div>
-        <div class="memory-card">
-          <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Quiet moment">
-          <div class="memory-caption">Those quiet moments I cherish</div>
+          <img src="https://raw.githubusercontent.com/Deemistral/Deemistral.github.io/refs/heads/main/blue%20hyacinth.png">
+          <div class="memory-caption">Blue Hyacinth: Represents sincerity and deep apologies</div>
         </div>
       </div>
     </div>
@@ -689,8 +738,8 @@
       <h2>What Happens Next</h2>
       
       <div class="next-steps">
-        <p>I don't expect anything. But I wanted you to know how I feel. If you ever want to talk — or not talk — I'm here.</p>
-        <p>No pressure, no expectations. Just know that I care deeply about you and our relationship.</p>
+        <p>I don't expect anything. But I wanted you to know how I feel. If you ever want to talk — or not talk—I'm here.</p>
+        <p>No pressure, no expectations. Just know that I care deeply about how my actions might have affected you.</p>
         <p>Whatever you decide, I respect your feelings and your space.</p>
       </div>
     </div>
@@ -712,12 +761,15 @@
 
     <!-- Thank You -->
     <div class="section" id="thankyou-section">
+      <button class="home-btn" onclick="goToSection(0)" title="Return to Home">
+        <i class="fas fa-home"></i>
+      </button>
       <div class="thank-you">
         <div class="rose">🌹</div>
         <h2>Thank You</h2>
         <div class="next-steps" style="text-align: center;">
           <p>For taking the time to read my apology.</p>
-          <p>For the memories we've shared.</p>
+          <p>For the impact you have made in this short sojourn.</p>
           <p>For being you.</p>
           <p>This rose is but a small token of my appreciation.</p>
           <p>May its petals carry my sincerest regrets and warmest hopes.</p>
@@ -735,7 +787,7 @@
 
   <!-- Footer -->
   <div class="footer">
-    <p>© 2025 Made with love for one person only.</p>
+    <p>© 2025 Made with love for you only - Banwo.</p>
   </div>
 
   <script>
@@ -781,19 +833,50 @@
       }, 1000);
     });
 
-    // Audio Player
+    // Audio Player - Improved for mobile
     const playButton = document.getElementById('playButton');
     const bgMusic = document.getElementById('bgMusic');
     const audioPlayer = document.querySelector('.audio-player');
     let isPlaying = false;
     let musicTimeout;
 
+    // Enable audio on mobile by requiring user interaction first
+    function enableAudio() {
+      // Create a temporary audio context to resume on user interaction
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const audioContext = new AudioContext();
+      
+      // Resume the audio context when user interacts
+      document.body.addEventListener('click', function() {
+        if (audioContext.state !== 'running') {
+          audioContext.resume();
+        }
+      }, { once: true });
+    }
+
+    // Call this on page load
+    enableAudio();
+
     // Start music when Begin button is clicked
     document.getElementById('beginBtn').addEventListener('click', function() {
       audioPlayer.style.display = 'flex';
-      bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
-      playButton.textContent = '🔊';
-      isPlaying = true;
+      
+      // On mobile, we need user interaction to play audio
+      const playPromise = bgMusic.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          // Audio playback started successfully
+          playButton.textContent = '🔊';
+          isPlaying = true;
+        })
+        .catch(error => {
+          // Auto-play was prevented, show play button
+          playButton.textContent = '🔇';
+          isPlaying = false;
+        });
+      }
+      
       nextSection();
     });
 
@@ -802,8 +885,13 @@
         bgMusic.pause();
         playButton.textContent = '🔇';
       } else {
-        bgMusic.play();
-        playButton.textContent = '🔊';
+        bgMusic.play()
+          .then(() => {
+            playButton.textContent = '🔊';
+          })
+          .catch(error => {
+            console.log("Playback failed:", error);
+          });
       }
       isPlaying = !isPlaying;
     });
@@ -830,8 +918,8 @@
       // Update buttons
       prevBtn.disabled = currentSectionIndex === 0;
       
-      // Hide next button only on envelope page (index 1) and last page
-      if (currentSectionIndex === 1 || currentSectionIndex === sections.length - 1) {
+      // Hide next button on home page (index 0), envelope page (index 1), and last page
+      if (currentSectionIndex === 0 || currentSectionIndex === 1 || currentSectionIndex === sections.length - 1) {
         nextBtn.classList.add('hidden');
       } else {
         nextBtn.classList.remove('hidden');
@@ -894,9 +982,9 @@
       const text = document.querySelector('textarea').value;
       
       if (method === 'whatsapp') {
-        window.location.href = `https://wa.me/1234567890?text=${encodeURIComponent(text || "I've read your apology")}`;
+        window.location.href = `https://wa.me/+2348096674826?text=${encodeURIComponent(text || "I've read your apology")}`;
       } else if (method === 'email') {
-        window.location.href = `mailto:youremail@example.com?subject=Response%20to%20Your%20Apology&body=${encodeURIComponent(text || "I've read your apology")}`;
+        window.location.href = `mailto:olaniyiadedolapo@gmail.com?subject=Response%20to%20Your%20Apology&body=${encodeURIComponent(text || "I've read your apology")}`;
       } else {
         // No response needed - go to thank you page
         goToSection(sections.length - 1);
