@@ -19,16 +19,16 @@
       line-height: 1.6;
       font-family: 'IM Fell English', serif;
       overflow-x: hidden;
-      height: 100vh;
-      overflow-y: hidden;
+      min-height: 100vh;
     }
 
     /* Main Container */
     .container {
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
       overflow: hidden;
+      padding-bottom: 60px; /* Space for footer */
     }
 
     /* Sections */
@@ -37,8 +37,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      padding: 2rem;
+      min-height: calc(100vh - 60px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -48,6 +47,9 @@
       transform: translateX(100%);
       transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
       z-index: 1;
+      padding: 1rem;
+      box-sizing: border-box;
+      overflow-y: auto;
     }
 
     .section.active {
@@ -66,16 +68,71 @@
       opacity: 0;
     }
 
+    /* Letter Section */
+    #apology-section {
+      justify-content: flex-start;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .apology-content {
+      background-color: #f8f3e6;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="100%" height="100%" fill="none" stroke="%23d1c7b8" stroke-width="2" stroke-dasharray="5,5" /></svg>');
+      padding: 2rem;
+      width: 95%;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-align: left;
+      border-radius: 2px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0,0,0,0.3);
+      border: 1px solid #d1c7b8;
+      overflow-y: auto;
+      max-height: 75vh;
+      word-break: break-word;
+      overflow-x: hidden;
+    }
+
+    /* Typewriter Animation */
+    .typewriter {
+      opacity: 0;
+      border-right: .15em solid #8c2a22;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .typewriter.animated {
+      animation: 
+        typing 3.5s steps(40, end) forwards,
+        blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; opacity: 1; }
+      to { width: 100%; opacity: 1; white-space: normal; border-right: none; }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #8c2a22; }
+    }
+
     /* Navigation Controls */
     .nav-controls {
       position: fixed;
-      bottom: 80px;
+      bottom: 70px;
       left: 0;
       right: 0;
       display: flex;
       justify-content: center;
       gap: 1rem;
       z-index: 100;
+      padding: 10px;
+      background: rgba(249, 244, 240, 0.9);
+      border-top: 1px solid #d1c7b8;
     }
 
     .nav-dots {
@@ -99,7 +156,7 @@
     }
 
     .nav-btn {
-      padding: 0.5rem 1.5rem;
+      padding: 0.8rem 1.5rem;
       background: #8c2a22;
       color: #f8f3e6;
       border: none;
@@ -108,6 +165,7 @@
       cursor: pointer;
       transition: all 0.3s;
       min-width: 100px;
+      font-size: 1rem;
     }
 
     .nav-btn:hover {
@@ -119,25 +177,29 @@
       cursor: not-allowed;
     }
 
+    .nav-btn.hidden {
+      display: none;
+    }
+
     /* Typography */
     h1, h2 {
       font-family: 'IM Fell English SC', serif;
       color: #5c3a21;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
       letter-spacing: 1px;
+      margin: 0.5rem 0;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: clamp(2rem, 6vw, 3rem);
     }
 
     h2 {
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 5vw, 2rem);
     }
 
     .subtitle {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 4vw, 1.2rem);
       margin-bottom: 1.5rem;
       max-width: 800px;
       color: #5a4a3a;
@@ -146,12 +208,12 @@
 
     /* Buttons */
     .btn {
-      padding: 0.8rem 2rem;
+      padding: 0.8rem 1.8rem;
       background: #8c2a22;
       color: #f8f3e6;
       border: none;
       border-radius: 50px;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 4vw, 1.1rem);
       cursor: pointer;
       transition: all 0.3s;
       font-family: 'IM Fell English', serif;
@@ -168,8 +230,8 @@
     /* Envelope Section */
     .envelope-container {
       position: relative;
-      width: 300px;
-      height: 225px;
+      width: min(300px, 80vw);
+      height: min(225px, 60vw);
       margin: 1rem auto;
       perspective: 1000px;
       cursor: pointer;
@@ -235,32 +297,16 @@
       transform: rotateY(180deg);
     }
 
-    /* Apology Letter */
-    .apology-content {
-      background-color: #f8f3e6;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="100%" height="100%" fill="none" stroke="%23d1c7b8" stroke-width="2" stroke-dasharray="5,5" /></svg>');
-      padding: 30px;
-      width: 100%;
-      max-width: 600px;
-      position: relative;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      text-align: left;
-      border-radius: 2px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0,0,0,0.3);
-      border: 1px solid #d1c7b8;
-      margin: 1rem 0;
-    }
-
+    /* Letter Content */
     .handwriting {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.5rem;
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
       margin-bottom: 1rem;
     }
     
     .signature {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.8rem;
+      font-size: clamp(1.5rem, 5vw, 2rem);
       margin-top: 2rem;
       text-align: right;
     }
@@ -269,7 +315,7 @@
       font-style: italic;
       text-align: right;
       margin-top: 0.5rem;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 3vw, 1rem);
       color: #5a4a3a;
     }
     
@@ -297,9 +343,9 @@
     }
     
     .wax-seal-letter {
-      position: absolute;
-      bottom: 30px;
-      left: 30px;
+      position: sticky;
+      bottom: 20px;
+      left: 20px;
       width: 50px;
       height: 50px;
       background: #8c2a22;
@@ -312,6 +358,8 @@
       justify-content: center;
       align-items: center;
       transform: rotate(-10deg);
+      margin-top: 20px;
+      float: left;
     }
     
     .wax-seal-letter::before {
@@ -347,11 +395,11 @@
     /* Memories Gallery */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 1rem;
       margin: 1rem 0;
+      width: 95%;
       max-width: 800px;
-      width: 100%;
     }
 
     .memory-card {
@@ -398,13 +446,12 @@
 
     /* Response Form */
     .form-container {
-      width: 100%;
+      width: 95%;
       max-width: 500px;
       background: #f8f3e6;
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      position: relative;
       margin: 1rem 0;
     }
 
@@ -423,10 +470,10 @@
 
     /* Next Steps Section */
     .next-steps {
-      width: 100%;
+      width: 95%;
       max-width: 600px;
       background: #f8f3e6;
-      padding: 30px;
+      padding: 2rem;
       margin: 1rem 0;
       border-radius: 2px;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0,0,0,0.3);
@@ -443,10 +490,11 @@
       align-items: center;
       justify-content: center;
       height: 100%;
+      padding: 1rem;
     }
 
     .rose {
-      font-size: 4rem;
+      font-size: clamp(2.5rem, 12vw, 4rem);
       margin-bottom: 1rem;
       animation: float 3s ease-in-out infinite;
     }
@@ -469,78 +517,99 @@
       text-align: center;
       z-index: 99;
       border-top: 2px solid #8c2a22;
+      display: block; /* Ensure footer is always visible */
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-      
-      h2 {
-        font-size: 1.8rem;
-      }
-      
-      .subtitle {
-        font-size: 1.1rem;
-      }
-      
-      .apology-content, .next-steps {
-        padding: 20px;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      }
-
-      .nav-controls {
-        bottom: 70px;
-      }
+    /* Audio Player */
+    .audio-player {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1000;
+      background: rgba(249, 244, 240, 0.9);
+      padding: 8px 12px;
+      border-radius: 50px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: none;
     }
 
+    .audio-player button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: #8c2a22;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Pulse Animation */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+
+    /* Mobile-specific adjustments */
     @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
+      .section {
+        padding: 0.8rem;
       }
       
-      .section {
-        padding: 1rem;
+      .apology-content {
+        padding: 1.5rem;
+        max-height: 70vh;
       }
       
       .nav-controls {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
+        bottom: 60px;
+        padding: 8px;
       }
       
       .nav-btn {
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1.2rem;
         min-width: 80px;
-      }
-      
-      .envelope-container {
-        width: 250px;
-        height: 188px;
       }
       
       .wax-seal {
         width: 50px;
         height: 50px;
       }
+      
+      .audio-player {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+      }
 
-      .rose {
-        font-size: 3rem;
+      /* Ensure footer is visible on mobile */
+      .footer {
+        padding: 0.8rem;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Audio Player (hidden until needed) -->
+  <div class="audio-player">
+    <button id="playButton">🔊</button>
+    <audio id="bgMusic" loop>
+      <source src="https://dn720303.ca.archive.org/0/items/apologize_202104/Apologize.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
   <div class="container">
     <!-- Landing -->
     <div class="section active" id="landing">
       <h1>My Heartfelt Apology</h1>
       <p class="subtitle">[Recipient's Name], please take a moment to read this message from my heart.</p>
-      <button class="btn" onclick="nextSection()">Begin</button>
+      <button class="btn" id="beginBtn">Begin</button>
     </div>
 
     <!-- Envelope -->
@@ -569,21 +638,21 @@
         <div class="ink-blot ink-blot-1"></div>
         <div class="ink-blot ink-blot-2"></div>
         
-        <div class="handwriting">My Dearest [Name],</div>
+        <div class="handwriting typewriter">My Dearest [Name],</div>
         
-        <p>I write these words with a heavy heart, filled with regret for my actions. I've spent countless hours reflecting on what happened, and I realize now how deeply I've hurt you.</p>
+        <p class="typewriter">I write these words with a heavy heart, filled with regret for my actions. I've spent countless hours reflecting on what happened, and I realize now how deeply I've hurt you.</p>
         
-        <p>When I [describe what you did wrong], I wasn't thinking clearly about how it would affect you. I see now that it made you feel [describe their feelings], and that realization fills me with sorrow.</p>
+        <p class="typewriter">When I [describe what you did wrong], I wasn't thinking clearly about how it would affect you. I see now that it made you feel [describe their feelings], and that realization fills me with sorrow.</p>
         
-        <p>You are one of the most important people in my life, and the thought that I've caused you pain is unbearable. I want you to know that I truly understand what I did wrong, and I'm committed to making things right.</p>
+        <p class="typewriter">You are one of the most important people in my life, and the thought that I've caused you pain is unbearable. I want you to know that I truly understand what I did wrong, and I'm committed to making things right.</p>
         
-        <p>I'm not making excuses for my behavior. I take full responsibility for my actions, and I want to do whatever I can to repair the trust I've broken between us.</p>
+        <p class="typewriter">I'm not making excuses for my behavior. I take full responsibility for my actions, and I want to do whatever I can to repair the trust I've broken between us.</p>
         
-        <p>Please know that I'm here, ready to listen whenever you're ready to talk. I value our relationship more than words can express, and I hope with time and effort, I can earn your forgiveness.</p>
+        <p class="typewriter">Please know that I'm here, ready to listen whenever you're ready to talk. I value our relationship more than words can express, and I hope with time and effort, I can earn your forgiveness.</p>
         
-        <p>With all my love and regret,</p>
+        <p class="typewriter">With all my love and regret,</p>
         
-        <div class="signature">[Your Name]</div>
+        <div class="signature typewriter">[Your Name]</div>
         <div class="date" id="currentDate"></div>
         
         <div class="wax-seal-letter"></div>
@@ -659,7 +728,7 @@
 
   <!-- Navigation Controls -->
   <div class="nav-controls">
-    <button class="nav-btn" id="prevBtn" disabled onclick="prevSection()">Previous</button>
+    <button class="nav-btn" id="prevBtn" onclick="prevSection()">Previous</button>
     <div class="nav-dots" id="navDots"></div>
     <button class="nav-btn" id="nextBtn" onclick="nextSection()">Next</button>
   </div>
@@ -712,6 +781,45 @@
       }, 1000);
     });
 
+    // Audio Player
+    const playButton = document.getElementById('playButton');
+    const bgMusic = document.getElementById('bgMusic');
+    const audioPlayer = document.querySelector('.audio-player');
+    let isPlaying = false;
+    let musicTimeout;
+
+    // Start music when Begin button is clicked
+    document.getElementById('beginBtn').addEventListener('click', function() {
+      audioPlayer.style.display = 'flex';
+      bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
+      playButton.textContent = '🔊';
+      isPlaying = true;
+      nextSection();
+    });
+
+    playButton.addEventListener('click', function() {
+      if (isPlaying) {
+        bgMusic.pause();
+        playButton.textContent = '🔇';
+      } else {
+        bgMusic.play();
+        playButton.textContent = '🔊';
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Stop music after 5 seconds on final page
+    function stopMusicAfterDelay() {
+      clearTimeout(musicTimeout);
+      if (currentSectionIndex === sections.length - 1) {
+        musicTimeout = setTimeout(() => {
+          bgMusic.pause();
+          playButton.textContent = '🔇';
+          isPlaying = false;
+        }, 5000);
+      }
+    }
+
     // Navigation functions
     function updateNavigation() {
       // Update dots
@@ -721,7 +829,28 @@
       
       // Update buttons
       prevBtn.disabled = currentSectionIndex === 0;
-      nextBtn.disabled = currentSectionIndex === sections.length - 1;
+      
+      // Hide next button only on envelope page (index 1) and last page
+      if (currentSectionIndex === 1 || currentSectionIndex === sections.length - 1) {
+        nextBtn.classList.add('hidden');
+      } else {
+        nextBtn.classList.remove('hidden');
+      }
+
+      // Handle music for final page
+      stopMusicAfterDelay();
+
+      // Animate typewriter effect when letter section becomes active
+      if (currentSectionIndex === 2) {
+        setTimeout(() => {
+          const typewriters = document.querySelectorAll('.typewriter');
+          typewriters.forEach((tw, i) => {
+            setTimeout(() => {
+              tw.classList.add('animated');
+            }, i * 1000); // Stagger animations
+          });
+        }, 300);
+      }
     }
 
     function goToSection(index) {
